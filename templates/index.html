@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/styles/index.css">
+    <title>Donate Me !!</title>
+  </head>
+  <body>
+
+    <div class="header">
+        <h1>Donate Page</h1>
+      </div>
+      <div class="container">
+        <div class="intro">
+          <h2>Hello, I'm Pratyush Kashyap!</h2>
+          <p>I am a passionate developer working on open-source projects. Your support helps me keep my projects alive and continue creating more awesome stuff!</p>
+        </div>
+        <div class="donation">
+        <form action="/" method="POST">
+            <label>Enter Amount : </label>
+            <input type="text" name="amount" required>
+            <p>Pay using Razorpay</p>
+            <button class="donate-button" id="rzp-button1">Donate Me</button>
+        </form>
+        </div>
+      </div>
+  </body>
+  {% if pdata %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_I4RI6OLrPcJeSM", // Enter the Key ID generated from the Dashboard
+    "amount": "{{pdata[0] }}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Pratyush Kashyap",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "{{pdata[1]}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "/success",
+    "prefill": {
+        "name": "Pratyush Kashyap",
+        "email": "pratyushk403@gmail.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#5cffab"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+{% endif %}
+</html>
+
